@@ -1,6 +1,28 @@
 CREATE database hospital_data;
 
+select * from medicos;
+
 USE hospital_data;
+
+	-- CONSULTAS
+
+		-- 1. Listar todos os médicos e a sua especialidade:
+			-- SELECT MedicoID, Nome, Especialidade, Em_Atividade FROM Medicos;
+
+		-- 2. Listar os pacientes e suas internações:
+			-- SELECT Pacientes.Nome AS Nome_Paciente, Internaçoes.Hospedagem_Quarto, Internaçoes.Data_da_Internaçao, Internaçoes.Data_Prevista_de_Alta, Internaçoes.Data_Efetivada_de_Alta FROM Pacientes JOIN Internaçoes ON Pacientes.PacienteID = Internaçoes.PacienteID;
+
+		-- 3. Listar os enfermeiros e seus respectivos CRE:
+			-- SELECT EnfermeiroID, Nome, CRE FROM Enfermeiros;
+
+		-- 4. Ordenar médicos pelo número de consultas:
+			-- SELECT MedicoID, Nome, Especialidade, Consultas FROM Medicos ORDER BY Consultas DESC;
+
+		-- 5. Listar os pacientes e suas consultas com valor superior a 100:
+			-- SELECT Pacientes.Nome AS Nome_Paciente, Consultas.Data_e_Hora, Consultas.Valor_Consulta FROM Pacientes JOIN Consultas ON Pacientes.PacienteID = Consultas.Paciente WHERE Consultas.Valor_Consulta > 100;
+
+		-- 6. Pacientes sem internações:
+			-- SELECT Pacientes.Nome AS Nome_Paciente FROM Pacientes LEFT JOIN Internaçoes ON Pacientes.PacienteID = Internaçoes.PacienteID WHERE Internaçoes.PacienteID IS NULL;
 
 		CREATE TABLE Medicos (
 			MedicoID INT PRIMARY KEY,
@@ -105,7 +127,8 @@ USE hospital_data;
 			Paciente VARCHAR (512),
 			Data_e_Hora TIMESTAMP,
 			Convenio VARCHAR (512),
-			Valor_Consulta DECIMAL (10,2)
+			Valor_Consulta DECIMAL (10,2),
+            
 		);
 			
 			INSERT INTO Consultas (ConsultasID, Medico_Responsavel, Paciente, Data_e_Hora, Convenio, Valor_Consulta) VALUES
